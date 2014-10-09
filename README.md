@@ -15,7 +15,7 @@ computer will put you into a kernel position, and the game is lost.
 
 Explanation of Nim: http://en.wikipedia.org/wiki/Nim
 
-If interested in kernels, please see:
+If you are interested in kernels, please see:
 - http://www.youtube.com/watch?v=oDniZCmNmNw&t=8m10s (Explains how this works in
   Nim)
 - http://www.sciencedirect.com/science/article/pii/S0012365X06003268
