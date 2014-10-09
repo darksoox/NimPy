@@ -1,3 +1,9 @@
+"""
+    Author  : John Martinsson
+    Summary : An implementation of the game Nim. The computer will play a perfect
+              game if possible.
+"""
+
 class Board():
     """ The board class
     """
@@ -214,23 +220,25 @@ def playerMove(board):
         return False
 
 def main():
+    """ The main game loop
+    """
     # initialize the board
     board = Board()
-    print('-----------------------------------------------------------------------')
-    print('Will now ask for game settings. When done enter:<done>')
-    print('Standard board is: row 0: 7, row 1: 5, row 2: 3')
-    print('-----------------------------------------------------------------------\n')
+    print('|-----------------------------------------------------------------------')
+    print('| Will now ask for game settings. When done enter:<done>')
+    print('| Standard board is: row 0: 7, row 1: 5, row 2: 3')
+    print('|-----------------------------------------------------------------------\n')
     # get the game settings from the user
-    print('-----------------------------------------------------------------------')
+    print('|-----------------------------------------------------------------------')
     board.getGameSettings()
-    print('-----------------------------------------------------------------------\n')
+    print('|-----------------------------------------------------------------------\n')
     # display the board position
-    print('-----------------------------------------------------------------------')
+    print('|-----------------------------------------------------------------------')
     print('| The game has begun, moves are assumed to be on form <sticks,row>')
     print('| For example if you input: <3,0> then 3 sticks will be taken from row 0.')
     print('|')
     print('| Nim rules: http://en.wikipedia.org/wiki/Nim')
-    print('-----------------------------------------------------------------------\n')
+    print('|-----------------------------------------------------------------------\n')
 
     board.displayPosition()
     playerWon = False
