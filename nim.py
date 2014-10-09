@@ -1,7 +1,7 @@
 class Board():
     def __init__(self):
         self.rows = []
-        self.maxSticks = 8
+        self.maxSticks = 8 # this is actually the max bits
 
     # Get the game settings by the user
     def getGameSettings(self):
