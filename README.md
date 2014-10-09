@@ -5,9 +5,9 @@ Python implementation of the mathematical strategy game Nim.
 
 Install
 ----
-$> git clone https://github.com/darksoox/NimPy.git
-$> cd NimPy
-&> python3 nim.py
+  $> git clone https://github.com/darksoox/NimPy.git
+  $> cd NimPy
+  &> python3 nim.py
 
 
 Info
