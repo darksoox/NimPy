@@ -1,10 +1,13 @@
 class Board():
+    """ The board class
+    """
     def __init__(self):
         self.rows = []
         self.maxSticks = 8 # this is actually the max bits
 
-    # Get the game settings by the user
     def getGameSettings(self):
+        """ Get the settings for the board by the user
+        """
         while True:
             data = input('Input number of sticks for row {} ({} max): '
             .format(len(self.rows), 2**self.maxSticks-1))
@@ -20,20 +23,32 @@ class Board():
             except Exception:
                 print('Invalid input, to end enter:<done>')
 
-    # display the position of this board (as sticks)
     def displayPosition(self):
+        """ Display the position of the board (as sticks)
+        """
         for row in self.rows:
             r = ['|' for i in range(row)]
             s = ''.join(r)
             print(s + ' \t({})'.format(row))
 
-    # if all sticks are taken, the game is over, and the last player that made a
-    # move has won.
     def checkGameWon(self):
+        """ Check if all sticks are taken, then the game is won.
+            
+            Returns
+            -------
+            Bool
+                True if game is over, False otherwise
+        """
         return sum(self.rows) == 0
 
-    # simply take s sticks from the r:th row of this board
     def take(self, s, r):
+        """ Take s sticks from the r:th row of this board.
+            
+            Returns
+            -------
+            Bool
+                True if the move is valid, otherwise False
+        """
         # check enough sticks
         if(self.rows[r] >= s):
             self.rows[r] -= s
@@ -41,28 +56,45 @@ class Board():
         else:
             return False
 
-    # reverse a previous take move
     def reverseTake(self, s, r):
+        """ Reverse a move
+        """
         # reverse the take
         self.rows[r] += s
 
-# Checks the parity between the number of sticks in each row. This number is
-# represented as a binary string. 
-#
-# For example:
-# row 0: 7      = 1101
-# row 1: 5      = 0101
-# row 2: 3      = 0011
-# ------------------------
-# Parity:         OEOO
-# In Binary:      1011
-# O = Odd
-# E = Even
-#
-# That is, there is an odd number of 1:s at the right most digit between each
-# row, and so on. We say that the parity is even if we get all even, that is
-# EEEE, or 0000, which is a kernel position in this game.
+
 def checkParity(board):
+    """ Checks the parity between the number of sticks in each row. This number is
+        represented as a binary string. 
+
+        Examples
+        --------
+        
+        Board 1
+        -------
+        row 0:  0111 (7 sticks)
+        row 1:  0101 (5 sticks)
+        row 2:  0011 (3 sticks)
+        ------------------------
+        Parity: 0001 (Odd)
+
+        That is, there is an odd number of 1:s at the right most digit between each
+        row, and so on. 
+        
+        We say that the parity is even if we get all even, that
+        is, 0000 in this case, which is a kernel position in this game. 
+        
+        For example we could change the parity of the board in Ex.1 to even by 
+        taking 1 stick from row 2, which would turn Board 1 -> Board 2
+
+        Board 2
+        -------
+        row 0: 6      = 0110 (6 sticks)
+        row 1: 5      = 0101 (5 sticks)
+        row 2: 3      = 0011 (3 sticks)
+        ------------------------
+        Parity:         0000 (Even)
+        """
     # initialize to parity 0
     parity = [0 for i in range(board.maxSticks)]
     for row in board.rows:
@@ -82,15 +114,34 @@ def checkParity(board):
     return ''.join(s)
 
 def parityEven(board):
+    """ Check if the board has an even parity
+        
+        Returns
+        -------
+        Bool
+            True if even parity, False otherwise
+    """
     # if only zeroes in the parity string, we say that the parity is even
     return int(checkParity(board), 2) == 0
 
 
-# Perform the next computer move, will force the player into a kernel if
-# possible, otherwise it will just take a stick from one of the rows.
-# @return: Boolean Flag, if True this move made the computer win, o/w False.
+
 def computerMove(board):
-    # get the parity in interger format
+    """ Perform the next computer move, will force the player into a kernel if
+        possible, otherwise it will just take a stick from one of the rows.
+        
+        Parameters
+        ----------
+        board : Board()
+                The board that is being played
+
+        Returns
+        -------
+        Bool
+            True if this move made the computer win, False otherwise
+    """
+    # Loop over all possible moves, make move if it turns the board into a board
+    # with even parity.
     for r in range(len(board.rows)):
         for i in range(board.rows[r]):
             s = i+1
@@ -123,10 +174,20 @@ def computerMove(board):
 
             return False
 
-# Get and perform the next player move, will display new board position, as well
-# as check if the game is over.
-# @return: Boolean Flag, if True this move made the player win, o/w False.
 def playerMove(board):
+    """ Get and perform the next player move, will display new board position, as well
+        as check if the game is over.
+
+        Parameters
+        ----------
+        board : Board()
+                The board that is being played
+
+        Return
+        ------
+        Bool
+            True if player wins with this move, False otherwise
+    """
     # assumed form, (sticks,row)
     while True:
         try:
