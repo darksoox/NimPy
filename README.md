@@ -3,6 +3,15 @@ NimPy
 
 Python implementation of the mathematical strategy game Nim.
 
+Install
+----
+$> git clone https://github.com/darksoox/NimPy.git
+$> cd NimPy
+&> python3 nim.py
+
+
+Info
+----
 I wanted to check if it was possible to implement the game such that the
 computer you play against always puts you into a kernel position if it is
 possible, that is, a losing position.
