@@ -9,33 +9,51 @@ class Board():
     """
     def __init__(self):
         self.rows = []
-        self.maxSticks = 8 # this is actually the max bits
+        self.maxSticks = 5 # this is actually the max bits
+        self.defaultBoard = [7, 5, 3]
 
     def getGameSettings(self):
         """ Get the settings for the board by the user
         """
-        while True:
-            data = input('Input number of sticks for row {} ({} max): '
-            .format(len(self.rows), 2**self.maxSticks-1))
-        
-            if data == 'done':
-                break
+        data = input('| default or custom board? : ')
+        while data != 'default' and data != 'custom':
+            print('| Valid input: <default>, <custom>')
+            data = input('| Default or custom board: ')
+
+        if data == 'default':
+            self.rows = self.defaultBoard
+        if data == 'custom':
+            while True:
+                data = input('| Input number of sticks for row {} ({} max): '
+                .format(len(self.rows), 2**self.maxSticks-1))
             
-            try:
-                if not int(data) > 2**self.maxSticks-1:
-                    self.rows.append(int(data))
-                else:
-                    print('To many sticks')
-            except Exception:
-                print('Invalid input, to end enter:<done>')
+                if data == 'done':
+                    break
+                
+                try:
+                    if not int(data) > 2**self.maxSticks-1:
+                        self.rows.append(int(data))
+                    else:
+                        print('To many sticks')
+                except Exception:
+                    print('| Invalid input, to end enter:<done>')
 
     def displayPosition(self):
         """ Display the position of the board (as sticks)
         """
-        for row in self.rows:
-            r = ['|' for i in range(row)]
-            s = ''.join(r)
-            print(s + ' \t({})'.format(row))
+        print('|-----------------------------------------------------------------------')
+        
+        for r in range(len(self.rows)):
+            row = self.rows[r]
+            s = ['|' for i in range(row)]
+            s = ''.join(s)
+            template = '{0:15}{1:40}{2:50}'
+            s1 = '| row {} :'.format(r)
+            s2 = '({} sticks)'.format(row)
+
+            print(template.format(s1, s, s2))
+
+        print('|-----------------------------------------------------------------------\n')
 
     def checkGameWon(self):
         """ Check if all sticks are taken, then the game is won.
@@ -225,17 +243,21 @@ def main():
     # initialize the board
     board = Board()
     print('|-----------------------------------------------------------------------')
-    print('| Will now ask for game settings. When done enter:<done>')
-    print('| Standard board is: row 0: 7, row 1: 5, row 2: 3')
+    print('| Game settings:')
+    print('|                <default> : for a default board')
+    print('|                <custom>  : for custom settings')
+    print('|                <done>    : when done entering custom settings')
     print('|-----------------------------------------------------------------------\n')
     # get the game settings from the user
     print('|-----------------------------------------------------------------------')
     board.getGameSettings()
     print('|-----------------------------------------------------------------------\n')
     # display the board position
-    print('|-----------------------------------------------------------------------')
-    print('| The game has begun, moves are assumed to be on form <sticks,row>')
-    print('| For example if you input: <3,0> then 3 sticks will be taken from row 0.')
+    print('|=======================================================================')
+    print('| The game has begun!')
+    print('|=======================================================================')
+    print('| Moves on form  : <sticks,row>  : will take #sticks from r:th row')
+    print('| Example        : <3,0>         : 3 sticks will be taken from row 0.')
     print('|')
     print('| Nim rules: http://en.wikipedia.org/wiki/Nim')
     print('|-----------------------------------------------------------------------\n')
