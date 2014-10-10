@@ -224,10 +224,10 @@ def playerMove(board):
                 board.take(s, r)
                 break
             else:
-                print('| Invalid move')
+                print('Invalid move')
 
         except Exception:
-            print('| Invalid input, try again. Valid input:<sticks,row>')
+            print('Invalid input, try again. Valid input:<sticks,row>')
    
     if(board.checkGameWon()):
         print('Player won!')
