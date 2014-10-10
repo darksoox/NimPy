@@ -34,7 +34,7 @@ class Board():
                     if not int(data) > 2**self.maxSticks-1:
                         self.rows.append(int(data))
                     else:
-                        print('To many sticks')
+                        print('| To many sticks')
                 except Exception:
                     print('| Invalid input, to end enter:<done>')
 
@@ -224,10 +224,10 @@ def playerMove(board):
                 board.take(s, r)
                 break
             else:
-                print('Invalid move')
+                print('| Invalid move')
 
         except Exception:
-            print('Invalid input, try again. Valid input:<sticks,row>')
+            print('| Invalid input, try again. Valid input:<sticks,row>')
    
     if(board.checkGameWon()):
         print('Player won!')
