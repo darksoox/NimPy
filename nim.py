@@ -4,6 +4,8 @@
               game if possible.
 """
 
+import random as rand
+
 class Board():
     """ The board class
     """
@@ -178,7 +180,9 @@ def computerMove(board):
                 print('Computer made move: {},{}'.format(s, r))
 
                 if(board.checkGameWon()):
-                    print('Computer won!')
+                    print('#######################################################################')
+                    print('#                            You win!                                 #')
+                    print('#######################################################################')
                     board.displayPosition()
                     return True
                 else:
@@ -189,11 +193,16 @@ def computerMove(board):
                 board.reverseTake(s, r)
 
     # If the computer is in fact in a losing position, that is, the parity is
-    # allready even, just take a stick, and be done with it.
-    for r in range(len(board.rows)):
+    # allready even, just some amount of sticks from a row, and be done with it.
+    while True:
+        # pick random row
+        r = rand.randint(0, len(board.rows))
+        # if it has more then one stick
         if board.rows[r] >= 1:
-            board.take(1, r)
-            print('Computer made move: {},{}'.format(s, r))
+            # take a random amount of these sticks
+            s = rand.randint(1, board.rows[r])
+            board.take(s, r)
+            print('Computer made move: {},{}'.format(1, r))
             board.displayPosition()
 
             return False
@@ -230,7 +239,9 @@ def playerMove(board):
             print('Invalid input, try again. Valid input:<sticks,row>')
    
     if(board.checkGameWon()):
-        print('Player won!')
+        print('#######################################################################')
+        print('#                            You win!                                 #')
+        print('#######################################################################')
         board.displayPosition()
         return True
     else:
